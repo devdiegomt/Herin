@@ -7,7 +7,7 @@
  * - Usa imágenes cuadradas (1:1) o 4:5 para mejor presentación
  */
 
-export const WHATSAPP_NUMBER = '573001234567' // ← Cambia por el número real de HERIN
+export const WHATSAPP_NUMBER = '573223772019' // ← Cambia por el número real de HERIN
 
 export const categories = [
   { id: 'all', label: 'Todos' },
