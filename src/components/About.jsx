@@ -13,13 +13,13 @@ export default function About() {
             <div className="grid grid-cols-2 gap-3 sm:gap-4">
               <div className="space-y-3 sm:space-y-4 pt-8">
                 <img
-                  src="/images/products/candles/conejo.webp"
+                  src="/images/products/candles/vela1.webp"
                   alt="Vela artesanal Herin"
                   className="rounded-2xl w-full object-cover aspect-[3/4] shadow-md"
                   loading="lazy"
                 />
                 <img
-                  src="/images/products/flowerpots/elefantesinmata.webp"
+                  src="/images/products/flowerpots/matera1.webp"
                   alt="Suculenta en matera artesanal"
                   className="rounded-2xl w-full object-cover aspect-[4/3] shadow-md"
                   loading="lazy"
@@ -27,13 +27,13 @@ export default function About() {
               </div>
               <div className="space-y-3 sm:space-y-4">
                 <img
-                  src="/images/products/flowerpots/hexagonalsinmata.webp"
+                  src="/images/products/flowerpots/matera2.webp"
                   alt="Plantas decorativas"
                   className="rounded-2xl w-full object-cover aspect-[4/3] shadow-md"
                   loading="lazy"
                 />
                 <img
-                  src="/images/products/flowerpots/materacircular2.webp"
+                  src="/images/products/flowerpots/matera6.webp"
                   alt="Taller artesanal"
                   className="rounded-2xl w-full object-cover aspect-[3/4] shadow-md"
                   loading="lazy"
