@@ -107,8 +107,8 @@ export const products = [
     price: '68.000',
     image: '/images/materaelefante.webp',
     tag: 'Edición limitada',
-  },
-  {
+  }
+  /* {
     id: 11,
     name: 'Atardecer',
     category: 'velas',
@@ -161,5 +161,5 @@ export const products = [
     price: '52.000',
     image: 'https://images.unsplash.com/photo-1543783207-ec64e4d95325?w=600&h=700&fit=crop&crop=center',
     tag: 'Edición limitada',
-  },
+  }, */
 ]
