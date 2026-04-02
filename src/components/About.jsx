@@ -13,13 +13,13 @@ export default function About() {
             <div className="grid grid-cols-2 gap-3 sm:gap-4">
               <div className="space-y-3 sm:space-y-4 pt-8">
                 <img
-                  src="https://images.unsplash.com/photo-1602607079888-67c3e93efce6?w=400&h=500&fit=crop"
+                  src="/images/products/candles/conejo.webp"
                   alt="Vela artesanal Herin"
                   className="rounded-2xl w-full object-cover aspect-[3/4] shadow-md"
                   loading="lazy"
                 />
                 <img
-                  src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=300&fit=crop"
+                  src="/images/products/flowerpots/elefantesinmata.webp"
                   alt="Suculenta en matera artesanal"
                   className="rounded-2xl w-full object-cover aspect-[4/3] shadow-md"
                   loading="lazy"
@@ -27,13 +27,13 @@ export default function About() {
               </div>
               <div className="space-y-3 sm:space-y-4">
                 <img
-                  src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=400&h=300&fit=crop"
+                  src="/images/products/flowerpots/hexagonalsinmata.webp"
                   alt="Plantas decorativas"
                   className="rounded-2xl w-full object-cover aspect-[4/3] shadow-md"
                   loading="lazy"
                 />
                 <img
-                  src="https://images.unsplash.com/photo-1574263867128-a3d5c1b1decc?w=400&h=500&fit=crop"
+                  src="/images/products/flowerpots/materacircular2.webp"
                   alt="Taller artesanal"
                   className="rounded-2xl w-full object-cover aspect-[3/4] shadow-md"
                   loading="lazy"
