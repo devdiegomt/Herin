@@ -23,7 +23,7 @@ export const products = [
     category: 'materas',
     description: 'Matera geométrica en cemento y marmolina con suculenta echevería. Acabado natural con vetas únicas.',
     price: '45.000',
-    image: 'https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=600&h=700&fit=crop&crop=center',
+    image: '/images/materahex.webp',
     tag: 'Popular',
   },
   {
@@ -32,7 +32,7 @@ export const products = [
     category: 'materas',
     description: 'Matera cilíndrica pintada a mano con motivos florales. Incluye suculenta sedum.',
     price: '38.000',
-    image: 'https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?w=600&h=700&fit=crop&crop=center',
+    image: '/images/materahex2.webp',
     tag: null,
   },
   {
@@ -41,7 +41,7 @@ export const products = [
     category: 'materas',
     description: 'Matera escalonada inspirada en terrazas naturales. Cemento gris con detalles en terracota.',
     price: '55.000',
-    image: 'https://images.unsplash.com/photo-1509423350716-97f9360b4e09?w=600&h=700&fit=crop&crop=center',
+    image: '/images/materahex3.webp',
     tag: 'Nuevo',
   },
   {
@@ -50,7 +50,7 @@ export const products = [
     category: 'materas',
     description: 'Mini matera con forma orgánica redondeada. Perfecta para escritorios y repisas.',
     price: '28.000',
-    image: 'https://images.unsplash.com/photo-1463320898484-cdee8141c787?w=600&h=700&fit=crop&crop=center',
+    image: '/images/materacanasta.webp',
     tag: null,
   },
   {
@@ -59,7 +59,7 @@ export const products = [
     category: 'materas',
     description: 'Matera hexagonal con acabado marmolado. Incluye cactus miniatura seleccionado.',
     price: '42.000',
-    image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&h=700&fit=crop&crop=center',
+    image: '/images/materacanasta2.webp',
     tag: null,
   },
   {
@@ -68,13 +68,48 @@ export const products = [
     category: 'materas',
     description: 'Set de 3 mini materas con figuras de animales del bosque. Pintadas a mano con pigmentos naturales.',
     price: '68.000',
-    image: 'https://images.unsplash.com/photo-1501004318855-e4b3e0e10cb2?w=600&h=700&fit=crop&crop=center',
+    image: '/images/materaelefante.webp',
     tag: 'Edición limitada',
   },
-
-  // === VELAS ===
   {
     id: 7,
+    name: 'Bosque',
+    category: 'materas',
+    description: 'Set de 3 mini materas con figuras de animales del bosque. Pintadas a mano con pigmentos naturales.',
+    price: '68.000',
+    image: '/images/materacircular.webp',
+    tag: 'Edición limitada',
+  }, 
+
+  // === VELAS ===
+
+  {
+    id: 8,
+    name: 'Bosque',
+    category: 'velas',
+    description: 'Set de 3 mini materas con figuras de animales del bosque. Pintadas a mano con pigmentos naturales.',
+    price: '68.000',
+    image: '/images/velasencilla.webp',
+    tag: 'Edición limitada',
+  },  {
+    id: 9,
+    name: 'Bosque',
+    category: 'materas',
+    description: 'Set de 3 mini materas con figuras de animales del bosque. Pintadas a mano con pigmentos naturales.',
+    price: '68.000',
+image: '/images/velasencilla2.webp',
+    tag: 'Edición limitada',
+  },  {
+    id: 10,
+    name: 'Bosque',
+    category: 'materas',
+    description: 'Set de 3 mini materas con figuras de animales del bosque. Pintadas a mano con pigmentos naturales.',
+    price: '68.000',
+    image: '/images/materaelefante.webp',
+    tag: 'Edición limitada',
+  },
+  {
+    id: 11,
     name: 'Atardecer',
     category: 'velas',
     description: 'Vela de cera de soja con aroma a vainilla y canela. Pintada a mano con tonos cálidos del ocaso.',
@@ -83,7 +118,7 @@ export const products = [
     tag: 'Más vendida',
   },
   {
-    id: 8,
+    id: 12,
     name: 'Luna Llena',
     category: 'velas',
     description: 'Vela esférica con aroma a lavanda. Figura pintada de luna y estrellas. Ideal para relajación.',
@@ -92,7 +127,7 @@ export const products = [
     tag: null,
   },
   {
-    id: 9,
+    id: 13,
     name: 'Jardín Secreto',
     category: 'velas',
     description: 'Vela con forma de flor en cera de soja. Aroma suave a jazmín y rosa. Colores pastel.',
@@ -101,7 +136,7 @@ export const products = [
     tag: 'Nuevo',
   },
   {
-    id: 10,
+    id: 14,
     name: 'Abrazo',
     category: 'velas',
     description: 'Vela con figura de oso pintada a mano. Aroma a miel y almendras. Regalo perfecto.',
@@ -110,7 +145,7 @@ export const products = [
     tag: 'Para regalar',
   },
   {
-    id: 11,
+    id: 15,
     name: 'Brisa',
     category: 'velas',
     description: 'Vela en vaso de cemento reutilizable. Aroma fresco a eucalipto y menta. 40 horas de duración.',
@@ -119,7 +154,7 @@ export const products = [
     tag: null,
   },
   {
-    id: 12,
+    id: 16,
     name: 'Refugio',
     category: 'velas',
     description: 'Set de 3 mini velas con aromas de bosque: pino, cedro y musgo. Presentación en caja artesanal.',
