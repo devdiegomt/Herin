@@ -97,7 +97,7 @@ export const products = [
     category: 'materas',
     description: 'Set de 3 mini materas con figuras de animales del bosque. Pintadas a mano con pigmentos naturales.',
     price: '68.000',
-image: '/images/velasencilla2.webp',
+    image: '/images/velasencilla2.webp',
     tag: 'Edición limitada',
   },  {
     id: 10,
