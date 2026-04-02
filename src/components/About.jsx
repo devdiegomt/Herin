@@ -58,18 +58,18 @@ export default function About() {
 
             <div className="space-y-4 font-body text-warm-gray leading-relaxed">
               <p>
-                Herin nació del amor por lo artesanal y la belleza de las cosas simples. 
-                Desde Zipaquirá, Colombia, creamos piezas que llevan la calidez de lo hecho a mano 
+                Herin nació del amor por lo artesanal y la belleza de las cosas simples.
+                Desde Zipaquirá, Colombia, creamos piezas que llevan la calidez de lo hecho a mano
                 a cada rincón de tu hogar.
               </p>
               <p>
-                Nuestras materas son moldeadas con cemento y marmolina, cada una con texturas 
-                y acabados que las hacen irrepetibles. Las velas son elaboradas con cera de soja 
+                Nuestras materas son moldeadas con cemento y marmolina, cada una con texturas
+                y acabados que las hacen irrepetibles. Las velas son elaboradas con cera de soja
                 natural, aromas cuidadosamente seleccionados y figuras tiernas pintadas a mano.
               </p>
               <p>
-                Cada producto es una pieza de arte que refleja nuestra pasión por la naturaleza, 
-                el diseño consciente y la dedicación artesanal. Porque creemos que los detalles 
+                Cada producto es una pieza de arte que refleja nuestra pasión por la naturaleza,
+                el diseño consciente y la dedicación artesanal. Porque creemos que los detalles
                 pequeños transforman los espacios grandes.
               </p>
             </div>
@@ -78,11 +78,11 @@ export default function About() {
             <div className="mt-8 pt-8 border-t border-sand">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-moss/15 flex items-center justify-center">
-                  <span className="font-display text-lg text-moss font-semibold">H</span>
+                  <img className='rounded-full' src="/images/logo/logo.jpg" alt="Logo de Herin" />
                 </div>
                 <div>
                   <p className="font-display text-lg font-semibold text-charcoal">Herin</p>
-                  <p className="font-body text-sm text-warm-gray">Zipaquirá, Colombia 🇨🇴</p>
+                  <p className="font-body text-sm text-warm-gray">Zipaquirá, Colombia.</p>
                 </div>
               </div>
             </div>

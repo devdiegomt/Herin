@@ -7,7 +7,7 @@
  * - Usa imágenes cuadradas (1:1) o 4:5 para mejor presentación
  */
 
-export const WHATSAPP_NUMBER = '573223772019' // ← Cambia por el número real de HERIN
+export const WHATSAPP_NUMBER = '573143347357' // ← Cambia por el número real de HERIN
 
 export const categories = [
   { id: 'all', label: 'Todos' },
@@ -23,7 +23,7 @@ export const products = [
     category: 'materas',
     description: 'Matera geométrica en cemento y marmolina con suculenta echevería. Acabado natural con vetas únicas.',
     price: '45.000',
-    image: '/images/materahex.webp',
+    image: '/images/products/flowerpots/materahex.webp',
     tag: 'Popular',
   },
   {
@@ -32,7 +32,7 @@ export const products = [
     category: 'materas',
     description: 'Matera cilíndrica pintada a mano con motivos florales. Incluye suculenta sedum.',
     price: '38.000',
-    image: '/images/materahex2.webp',
+    image: '/images/products/flowerpots/materahex2.webp',
     tag: null,
   },
   {
@@ -41,7 +41,7 @@ export const products = [
     category: 'materas',
     description: 'Matera escalonada inspirada en terrazas naturales. Cemento gris con detalles en terracota.',
     price: '55.000',
-    image: '/images/materahex3.webp',
+    image: '/images/products/flowerpots/materahex3.webp',
     tag: 'Nuevo',
   },
   {
@@ -50,7 +50,7 @@ export const products = [
     category: 'materas',
     description: 'Mini matera con forma orgánica redondeada. Perfecta para escritorios y repisas.',
     price: '28.000',
-    image: '/images/materacanasta.webp',
+    image: '/images/products/flowerpots/materacanasta.webp',
     tag: null,
   },
   {
@@ -59,7 +59,7 @@ export const products = [
     category: 'materas',
     description: 'Matera hexagonal con acabado marmolado. Incluye cactus miniatura seleccionado.',
     price: '42.000',
-    image: '/images/materacanasta2.webp',
+    image: '/images/products/flowerpots/materacanasta2.webp',
     tag: null,
   },
   {
@@ -68,7 +68,7 @@ export const products = [
     category: 'materas',
     description: 'Set de 3 mini materas con figuras de animales del bosque. Pintadas a mano con pigmentos naturales.',
     price: '68.000',
-    image: '/images/materaelefante.webp',
+    image: '/images/products/flowerpots/materaelefante.webp',
     tag: 'Edición limitada',
   },
   {
@@ -77,7 +77,7 @@ export const products = [
     category: 'materas',
     description: 'Set de 3 mini materas con figuras de animales del bosque. Pintadas a mano con pigmentos naturales.',
     price: '68.000',
-    image: '/images/materacircular.webp',
+    image: '/images/products/flowerpots/materacircular.webp',
     tag: 'Edición limitada',
   }, 
 
@@ -89,7 +89,7 @@ export const products = [
     category: 'velas',
     description: 'Set de 3 mini materas con figuras de animales del bosque. Pintadas a mano con pigmentos naturales.',
     price: '68.000',
-    image: '/images/velasencilla.webp',
+    image: '/images/products/candles/velasencilla.webp',
     tag: 'Edición limitada',
   },  {
     id: 9,
@@ -97,7 +97,7 @@ export const products = [
     category: 'materas',
     description: 'Set de 3 mini materas con figuras de animales del bosque. Pintadas a mano con pigmentos naturales.',
     price: '68.000',
-    image: '/images/velasencilla2.webp',
+    image: '/images/products/candles/velasencilla2.webp',
     tag: 'Edición limitada',
   },  {
     id: 10,

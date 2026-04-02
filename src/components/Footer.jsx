@@ -16,7 +16,7 @@ const FacebookIcon = ({ size = 18 }) => (
 )
 
 const socialLinks = [
-  { icon: InstagramIcon, href: 'https://instagram.com/herin_co', label: 'Instagram' },
+  { icon: InstagramIcon, href: 'https://instagram.com/herin_oficial', label: 'Instagram' },
   { icon: FacebookIcon, href: 'https://facebook.com/herin', label: 'Facebook' },
   { icon: Mail, href: 'mailto:hola@herin.co', label: 'Email' },
 ]
