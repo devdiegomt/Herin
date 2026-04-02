@@ -10,7 +10,7 @@ export default function CTA() {
       {/* Background */}
       <div className="absolute inset-0">
         <img
-          src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1600&h=800&fit=crop&crop=center"
+          src="https://img.freepik.com/foto-gratis/flor-colorida-jardin_1373-544.jpg"
           alt="Ambiente cálido con decoración"
           className="w-full h-full object-cover"
           loading="lazy"
@@ -25,7 +25,7 @@ export default function CTA() {
         </div>
 
         <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-semibold text-cream-light mb-5 leading-tight">
-          ¿Lista para transformar
+          ¿Listo para transformar
           <br />
           <span className="italic font-normal text-blush">tu espacio?</span>
         </h2>

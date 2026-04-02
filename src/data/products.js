@@ -99,7 +99,7 @@ export const products = [
     price: '68.000',
     image: '/images/products/candles/velasencilla2.webp',
     tag: 'Edición limitada',
-  },  {
+  }/* ,  {
     id: 10,
     name: 'Bosque',
     category: 'materas',
@@ -107,7 +107,7 @@ export const products = [
     price: '68.000',
     image: '/images/materaelefante.webp',
     tag: 'Edición limitada',
-  }
+  } */
   /* {
     id: 11,
     name: 'Atardecer',
