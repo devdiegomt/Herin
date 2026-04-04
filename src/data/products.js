@@ -28,7 +28,7 @@ export const products = [
   },
   {
     id: 2,
-    name: 'Matera geométrica blanca',
+    name: 'Matera geométrica crema',
     category: 'materas',
     description: 'Matera geométrica blanca, estilo limpio y elegante.',
     price: '4.000',
@@ -170,9 +170,9 @@ PENDIENTE AGREGAR Y MODIFICAR
   }, */
   {
     id: 17,
-    name: 'Vela Angelito blanco',
+    name: 'Vela Angelito verde',
     category: 'velas',
-    description: 'Vela escultórica blanca con forma artística.',
+    description: 'Vela escultórica verde con forma artística.',
     price: '4.500',
     image: '/images/products/candles/vela7.webp',
     tag: 'Edición limitada',
@@ -268,7 +268,7 @@ PENDIENTE AGREGAR Y MODIFICAR
     category: 'materas',
     description: 'Matera grande con diseño geométrico, ideal para plantas de mayor tamaño.',
     price: '18.000',
-    image: '/images/products/candles/vela15.webp',
+    image: '/images/products/flowerpots/matera11.webp',
     tag: null,
  }
 ]
