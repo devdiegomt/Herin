@@ -10,7 +10,7 @@ export default function CTA() {
       {/* Background */}
       <div className="absolute inset-0">
         <img
-          src="https://img.freepik.com/foto-gratis/flor-colorida-jardin_1373-544.jpg"
+          src="images/soft.jpg"
           alt="Ambiente cálido con decoración"
           className="w-full h-full object-cover"
           loading="lazy"
