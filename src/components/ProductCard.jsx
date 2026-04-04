@@ -48,7 +48,7 @@ export default function ProductCard({ product }) {
 
         {/* WhatsApp CTA */}
         <a
-          href={getWhatsAppLink(name)}
+          href={getWhatsAppLink(name, price)}
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center justify-center gap-2 w-full bg-moss hover:bg-moss-light text-cream-light py-3 rounded-xl text-sm font-medium tracking-wide transition-all duration-300 hover:shadow-md hover:shadow-moss/15"

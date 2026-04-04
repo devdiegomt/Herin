@@ -5,9 +5,9 @@ import { WHATSAPP_NUMBER } from '../data/products'
  * @param {string} productName - Nombre del producto
  * @returns {string} URL de WhatsApp
  */
-export function getWhatsAppLink(productName = '') {
+export function getWhatsAppLink(productName = '', price = '') {
   const message = productName
-    ? `¡Hola! 🌿 Me interesa el producto "${productName}" de Herin. ¿Podrían darme más información?`
+    ? `¡Hola! 🌿 Me interesa el producto "${productName}" (${price}) de Herin. ¿Podrían darme más información?`
     : '¡Hola! 🌿 Me gustaría conocer más sobre los productos de Herin.'
 
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
