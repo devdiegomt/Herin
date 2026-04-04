@@ -19,7 +19,7 @@ export const products = [
   // === MATERAS ===
   {
     id: 1,
-    name: 'Elefante sin mata',
+    name: 'Matera elefante azul',
     category: 'materas',
     description: 'Elefante minimalista azul, matera decorativa moderna.',
     price: '5.000',
@@ -28,7 +28,7 @@ export const products = [
   },
   {
     id: 2,
-    name: 'Geométrica sin mata',
+    name: 'Matera geométrica blanca',
     category: 'materas',
     description: 'Matera geométrica blanca, estilo limpio y elegante.',
     price: '4.000',
@@ -37,7 +37,7 @@ export const products = [
   },
   {
     id: 3,
-    name: 'Canasta',
+    name: 'Matera en forma de canasta',
     category: 'materas',
     description: 'Matera artesanal beige con suculenta pequeña.',
     price: '4.800',
@@ -46,7 +46,7 @@ export const products = [
   },
   {
     id: 4,
-    name: 'Jarrón',
+    name: 'Matera en forma de jarrón',
     category: 'materas',
     description: 'Matera rústica con planta.',
     price: '7.000',
@@ -55,7 +55,7 @@ export const products = [
   },
   {
     id: 5,
-    name: 'Circular',
+    name: 'Matera circular',
     category: 'materas',
     description: 'Matera redonda blanca con suculenta central.',
     price: '4.800',
@@ -73,7 +73,7 @@ export const products = [
   }, */
   {
     id: 7,
-    name: 'Elefante',
+    name: 'Matera elefante blanca',
     category: 'materas',
     description: 'Matera elefante blanca, diseño creativo decorativo.',
     price: '6.800',
@@ -82,7 +82,7 @@ export const products = [
   },
   {
     id: 8,
-    name: 'Pequeña',
+    name: 'Matera hexagonal pequeña',
     category: 'materas',
     description: 'Matera hexagonal blanca con suculenta compacta.',
     price: '3.800',
@@ -114,7 +114,7 @@ PENDIENTE AGREGAR Y MODIFICAR
 
   {
     id: 11,
-    name: 'Coneja',
+    name: 'Vela Conejita',
     category: 'velas',
     description: 'Vela verde tierna con figura sonriente decorativa.',
     price: '5.500',
@@ -123,7 +123,7 @@ PENDIENTE AGREGAR Y MODIFICAR
   },
   {
     id: 12,
-    name: 'Colores (frasco vidrio)',
+    name: 'Vela corazones pastel',
     category: 'velas',
     description: 'Vela en frasco con corazones color pastel.',
     price: '6.800',
@@ -132,7 +132,7 @@ PENDIENTE AGREGAR Y MODIFICAR
   },
   {
     id: 13,
-    name: 'Colores - tapa corcho',
+    name: 'Vela colores con tapa de corcho',
     category: 'velas',
     description: 'Vela degradada rojo y blanco en frasco.',
     price: '5.800',
@@ -170,7 +170,7 @@ PENDIENTE AGREGAR Y MODIFICAR
   }, */
   {
     id: 17,
-    name: 'Angelito',
+    name: 'Vela Angelito blanco',
     category: 'velas',
     description: 'Vela escultórica blanca con forma artística.',
     price: '4.500',
@@ -217,7 +217,7 @@ PENDIENTE AGREGAR Y MODIFICAR
   },*/
   {
     id: 22,
-    name: 'Conejito azul',
+    name: 'Vela conejito azul',
     category: 'velas',
     description: 'Vela azul con figura de conejo adorable.',
     price: '5.500',
@@ -226,7 +226,7 @@ PENDIENTE AGREGAR Y MODIFICAR
   },
   {
     id: 23,
-    name: 'Osito',
+    name: 'Vela Osito verde',
     category: 'velas',
     description: 'Vela verde envuelta, estilo regalo creativo.',
     price: '3.000',
@@ -235,7 +235,7 @@ PENDIENTE AGREGAR Y MODIFICAR
   },
   {
     id: 24,
-    name: 'Perro',
+    name: 'Vela perro blanca',
     category: 'velas',
     description: 'Vela blanca en figura de perro, estilo regalo creativo.',
     price: '10.500',
@@ -264,7 +264,7 @@ PENDIENTE AGREGAR Y MODIFICAR
   } */
  {
     id: 27,
-    name: 'Grande con bonsai',
+    name: 'Matera grande Bonsai',
     category: 'materas',
     description: 'Matera grande con diseño geométrico, ideal para plantas de mayor tamaño.',
     price: '18.000',
