@@ -1,15 +1,32 @@
-import { useState } from 'react'
-import { products, categories } from '../data/products'
+import { useState, useMemo } from 'react'
+import { Search } from 'lucide-react'
 import ProductCard from './ProductCard'
 import { useReveal } from '../hooks/useReveal'
+import { useAsyncData } from '../hooks/useAsyncData'
+import { fetchProducts, fetchCategories } from '../data/api'
 
 export default function ProductList() {
   const [active, setActive] = useState('all')
+  const [query, setQuery] = useState('')
   const ref = useReveal()
 
-  const filtered = active === 'all'
-    ? products
-    : products.filter((p) => p.category === active)
+  const { data: products, loading, error } = useAsyncData(fetchProducts, [])
+  const { data: cats } = useAsyncData(fetchCategories, [])
+
+  const categories = useMemo(() => {
+    const base = [{ slug: 'all', label: 'Todos' }]
+    return cats ? [...base, ...cats] : base
+  }, [cats])
+
+  const filtered = useMemo(() => {
+    if (!products) return []
+    const q = query.trim().toLowerCase()
+    return products.filter((p) => {
+      const okCat = active === 'all' || p.categorySlug === active
+      const okQuery = !q || p.name.toLowerCase().includes(q)
+      return okCat && okQuery
+    })
+  }, [products, active, query])
 
   return (
     <section id="productos" className="py-20 sm:py-28 bg-cream-light noise-bg">
@@ -27,14 +44,28 @@ export default function ProductList() {
           </p>
         </div>
 
+        {/* Search bar */}
+        <div className="max-w-md mx-auto mb-8">
+          <div className="flex items-center gap-3 bg-white border border-sand rounded-full px-5 py-3 shadow-sm">
+            <Search size={18} className="text-warm-gray shrink-0" />
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Buscar producto…"
+              className="bg-transparent outline-none w-full text-sm text-charcoal placeholder:text-warm-gray/60"
+            />
+          </div>
+        </div>
+
         {/* Category filter */}
-        <div className="flex justify-center gap-2 sm:gap-3 mb-10 sm:mb-14">
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10 sm:mb-14">
           {categories.map((cat) => (
             <button
-              key={cat.id}
-              onClick={() => setActive(cat.id)}
+              key={cat.slug}
+              onClick={() => setActive(cat.slug)}
               className={`px-5 sm:px-6 py-2.5 rounded-full text-sm font-medium tracking-wide transition-all duration-300 ${
-                active === cat.id
+                active === cat.slug
                   ? 'bg-charcoal text-cream-light shadow-md'
                   : 'bg-sand/50 text-warm-gray hover:bg-sand hover:text-charcoal'
               }`}
@@ -44,18 +75,45 @@ export default function ProductList() {
           ))}
         </div>
 
+        {/* States */}
+        {loading && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div key={i} className="animate-pulse">
+                <div className="aspect-[4/5] bg-sand/40 rounded-2xl mb-4" />
+                <div className="h-4 bg-sand/40 rounded w-2/3 mb-2" />
+                <div className="h-3 bg-sand/30 rounded w-full" />
+              </div>
+            ))}
+          </div>
+        )}
+
+        {error && !loading && (
+          <p className="text-center text-warm-gray py-12">
+            No pudimos cargar los productos. Intenta recargar la página.
+          </p>
+        )}
+
+        {!loading && !error && filtered.length === 0 && (
+          <p className="text-center text-warm-gray py-12">
+            No hay productos que coincidan con tu búsqueda.
+          </p>
+        )}
+
         {/* Products grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {filtered.map((product, i) => (
-            <div
-              key={product.id}
-              className="animate-fade-up"
-              style={{ animationDelay: `${i * 0.08}s` }}
-            >
-              <ProductCard product={product} />
-            </div>
-          ))}
-        </div>
+        {!loading && !error && filtered.length > 0 && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {filtered.map((product, i) => (
+              <div
+                key={product.id}
+                className="animate-fade-up"
+                style={{ animationDelay: `${Math.min(i, 8) * 0.08}s` }}
+              >
+                <ProductCard product={product} />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   )
