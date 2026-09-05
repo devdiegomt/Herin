@@ -1,23 +1,24 @@
-import { WHATSAPP_NUMBER } from '../data/products'
+import { contact } from '../config/site'
 
 /**
- * Genera un link de WhatsApp con mensaje prellenado
- * @param {string} productName - Nombre del producto
- * @returns {string} URL de WhatsApp
+ * Links de WhatsApp con mensaje prellenado.
+ * El número vive en src/config/site.js
  */
+
+// Consulta sobre un producto concreto (desde la tarjeta o el detalle).
 export function getWhatsAppLink(productName = '', price = '') {
   const message = productName
-    ? `¡Hola! 🌿 Me interesa el producto "${productName}" (${price}) de Herin. ¿Podrían darme más información?`
+    ? `¡Hola! 🌿 Me interesa "${productName}"${price ? ` (${price})` : ''} de Herin. ¿Me pueden dar más información?`
     : '¡Hola! 🌿 Me gustaría conocer más sobre los productos de Herin.'
 
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
+  return buildLink(message)
 }
 
-/**
- * Genera link de WhatsApp para compra general
- * @returns {string} URL de WhatsApp
- */
+// Consulta general (botón flotante, hero, CTA).
 export function getWhatsAppGeneralLink() {
-  const message = '¡Hola! 🌿 Quiero hacer un pedido en Herin. ¿Me pueden ayudar?'
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
+  return buildLink('¡Hola! 🌿 Quiero hacer un pedido en Herin. ¿Me pueden ayudar?')
+}
+
+function buildLink(message) {
+  return `https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(message)}`
 }

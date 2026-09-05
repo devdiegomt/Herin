@@ -31,7 +31,13 @@ export default defineConfig([
       },
     },
     rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      // Sin eslint-plugin-react, el uso en JSX no cuenta como uso. Los
+      // componentes van en PascalCase, así que los ignoramos por patrón
+      // tanto si son variables como si llegan destructurados por props.
+      'no-unused-vars': [
+        'error',
+        { varsIgnorePattern: '^[A-Z_]', argsIgnorePattern: '^[A-Z_]' },
+      ],
     },
   },
 ])

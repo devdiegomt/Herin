@@ -52,24 +52,27 @@ export async function fetchProductBySlug(slug) {
 }
 
 // Productos relacionados: misma categoría, distinto producto.
+// El filtro por categoría va en la consulta (no en JS después del limit),
+// si no el limit recorta antes de filtrar y devuelve menos de los pedidos.
 export async function fetchRelated(categorySlug, excludeSlug, limit = 4) {
+  if (!categorySlug) return []
+
   const { data, error } = await supabase
     .from('products')
     .select(`
       id, slug, name, price, tag,
-      category:categories ( slug ),
+      category:categories!inner ( slug ),
       images:product_images ( url, is_primary, sort_order )
     `)
     .eq('active', true)
+    .eq('categories.slug', categorySlug)
     .neq('slug', excludeSlug)
+    .order('sort_order', { ascending: true })
     .limit(limit)
 
   if (error) throw error
 
-  return (data ?? [])
-    .filter((p) => p.category?.slug === categorySlug)
-    .map(normalizeProduct)
-    .slice(0, limit)
+  return (data ?? []).map(normalizeProduct)
 }
 
 // --- Helpers ---

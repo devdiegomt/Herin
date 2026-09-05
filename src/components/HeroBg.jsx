@@ -92,7 +92,7 @@ export default function HeroBg() {
         {/* Mecha y llama */}
         <rect x="777" y="500" width="6" height="22" rx="3" fill="#FFDC8E" opacity="0.55" />
         <ellipse cx="780" cy="500" rx="14" ry="7" fill="#FFB347" opacity="0.12" />
-        <line x1="780" y1="500" x2="780" y2="488" stroke="#FFDC8E" stroke-width="1.2" opacity="0.4" />
+        <line x1="780" y1="500" x2="780" y2="488" stroke="#FFDC8E" strokeWidth="1.2" opacity="0.4" />
         <circle cx="780" cy="486" r="4" fill="#FFB347" opacity="0.2" />
         <circle cx="780" cy="482" r="2.5" fill="#FF9F1C" opacity="0.12" />
         {/* Lunares decorativos */}
@@ -107,7 +107,7 @@ export default function HeroBg() {
         <rect x="898" y="554" width="44" height="68" rx="12" fill="#E8DFD0" opacity="0.45" />
         <rect x="904" y="560" width="32" height="56" rx="9" fill="#F0E6D8" opacity="0.45" />
         <rect x="917" y="542" width="5" height="16" rx="2.5" fill="#FFDC8E" opacity="0.45" />
-        <line x1="919.5" y1="542" x2="919.5" y2="534" stroke="#FFDC8E" stroke-width="0.8" opacity="0.3" />
+        <line x1="919.5" y1="542" x2="919.5" y2="534" stroke="#FFDC8E" strokeWidth="0.8" opacity="0.3" />
         <circle cx="919.5" cy="532" r="3" fill="#FFB347" opacity="0.15" />
         <circle cx="912" cy="582" r="2.5" fill="#DDD2C4" opacity="0.2" />
       </g>
@@ -123,13 +123,13 @@ export default function HeroBg() {
       </g>
 
       {/* Decorative floor line */}
-      <line x1="0" y1="660" x2="1360" y2="660" stroke="#E8DFD0" stroke-width="0.8" opacity="0.5" />
+      <line x1="0" y1="660" x2="1360" y2="660" stroke="#E8DFD0" strokeWidth="0.8" opacity="0.5" />
 
       {/* Subtle floor lines */}
       <g opacity="0.03">
-        <line x1="0" y1="690" x2="1360" y2="690" stroke="#8C8278" stroke-width="0.5" />
-        <line x1="0" y1="720" x2="1360" y2="720" stroke="#8C8278" stroke-width="0.5" />
-        <line x1="0" y1="750" x2="1360" y2="750" stroke="#8C8278" stroke-width="0.5" />
+        <line x1="0" y1="690" x2="1360" y2="690" stroke="#8C8278" strokeWidth="0.5" />
+        <line x1="0" y1="720" x2="1360" y2="720" stroke="#8C8278" strokeWidth="0.5" />
+        <line x1="0" y1="750" x2="1360" y2="750" stroke="#8C8278" strokeWidth="0.5" />
       </g>
     </svg>
   )
