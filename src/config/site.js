@@ -10,7 +10,7 @@ export const site = {
   name: 'Herin',
   tagline: 'Materas y velas artesanales',
   city: 'Zipaquirá, Cundinamarca',
-  url: 'https://herin.vercel.app',
+  url: 'https://herinoficial.vercel.app',
 }
 
 export const contact = {
@@ -18,6 +18,31 @@ export const contact = {
   whatsapp: '573143347357',
   email: null, // 'hola@herin.co' cuando exista
   instagram: 'herin_oficial',
+
+  /**
+   * Feed JSON de Behold (behold.so) con las publicaciones reales de Instagram.
+   *
+   * El navegador NO pide esta URL directamente: pasa por /api/instagram, que
+   * la cachea (ver instagramFeedPath abajo). Aquí queda la fuente original,
+   * que es lo único que hay que cambiar si algún día se rehace el feed.
+   *
+   * Si la pones en null, la sección vuelve a las fotos elegidas a mano que
+   * están en src/components/InstagramFeed.jsx.
+   */
+  instagramSourceUrl: 'https://feeds.behold.so/ANfpAQFVeComjZDkoZLM',
+
+  /**
+   * Lo que pide el navegador. Es nuestra propia función, no Behold.
+   *
+   * POR QUÉ: el plan gratuito de Behold permite 1.200 lecturas al mes. Si cada
+   * visitante leyera el feed directamente, una buena racha de tráfico desde
+   * Instagram lo agotaría y la sección se caería al respaldo. Con la función
+   * de por medio, el CDN responde a casi todo el mundo y a Behold solo le
+   * llegan unas pocas lecturas por día, sin importar cuánta gente entre.
+   *
+   * En desarrollo, vite.config.js redirige esta ruta al feed real.
+   */
+  instagramFeedPath: '/api/instagram',
 }
 
 export const store = {
