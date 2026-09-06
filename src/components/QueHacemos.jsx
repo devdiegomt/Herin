@@ -1,4 +1,5 @@
 import { ArrowUpRight } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import { useReveal } from '../hooks/useReveal'
 
 const categories = [
@@ -8,7 +9,8 @@ const categories = [
     description:
       'Moldeadas y curadas a mano. Cada matera tiene una textura irrepetible: veteados, acabados mate y colores tierra que se integran a cualquier espacio.',
     image: '/images/products/flowerpots/matera1.webp',
-    anchor: '#productos',
+    // Filtra el catálogo por esta categoría en vez de llevar a todo
+    categorySlug: 'materas',
   },
   {
     title: 'Velas',
@@ -16,7 +18,7 @@ const categories = [
     description:
       'Aromas seleccionados y figuras pintadas a mano. Encienden un ambiente cálido y duran horas gracias a la cera vegetal de combustión limpia.',
     image: '/images/products/candles/vela1.webp',
-    anchor: '#productos',
+    categorySlug: 'velas',
   },
 ]
 
@@ -52,8 +54,8 @@ export default function QueHacemos() {
 function CategoryCard({ cat, index }) {
   const ref = useReveal()
   return (
-    <a
-      href={cat.anchor}
+    <Link
+      to={`/?cat=${cat.categorySlug}#productos`}
       ref={ref}
       className="reveal group relative overflow-hidden rounded-3xl bg-sand/40 hover:shadow-xl transition-all duration-500"
       style={{ transitionDelay: `${index * 0.1}s` }}
@@ -88,6 +90,6 @@ function CategoryCard({ cat, index }) {
           {cat.description}
         </p>
       </div>
-    </a>
+    </Link>
   )
 }

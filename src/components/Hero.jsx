@@ -1,4 +1,4 @@
-import { MessageCircle, MapPin, Hand } from 'lucide-react'
+import { MessageCircle, MapPin, Hand, Clock } from 'lucide-react'
 import SectionLink from './SectionLink'
 import { store } from '../config/site'
 import { getWhatsAppGeneralLink } from '../utils/whatsapp'
@@ -36,22 +36,39 @@ export default function Hero() {
           Cada pieza es única.
         </p>
 
-        <div className="animate-fade-up animation-delay-300 flex flex-col sm:flex-row gap-3 justify-center mb-8">
-          <SectionLink
-            id="productos"
-            className="inline-flex items-center justify-center gap-2 bg-charcoal hover:bg-charcoal/85 text-paper px-8 py-3.5 rounded-full text-sm font-semibold tracking-wide transition-all duration-300 hover:-translate-y-0.5"
-          >
-            Ver el catálogo
-          </SectionLink>
-          <a
-            href={getWhatsAppGeneralLink()}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 border border-charcoal/20 hover:border-charcoal/45 text-charcoal px-8 py-3.5 rounded-full text-sm font-medium tracking-wide transition-all duration-300 hover:bg-charcoal/[0.03]"
-          >
-            <MessageCircle size={16} />
-            Escríbenos
-          </a>
+        {/*
+          Tres acciones al mismo nivel. En móvil el catálogo va completo arriba
+          y las otras dos comparten fila, para no empujar el catálogo hacia
+          abajo con tres botones apilados.
+        */}
+        <div className="animate-fade-up animation-delay-300 mb-7">
+          <div className="flex flex-col sm:flex-row gap-3 sm:justify-center">
+            <SectionLink
+              id="productos"
+              className="inline-flex items-center justify-center gap-2 bg-charcoal hover:bg-charcoal/85 text-paper px-8 py-3.5 rounded-full text-sm font-semibold tracking-wide transition-all duration-300 hover:-translate-y-0.5"
+            >
+              Ver el catálogo
+            </SectionLink>
+
+            <div className="flex gap-3 sm:contents">
+              <a
+                href={getWhatsAppGeneralLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 sm:gap-2 whitespace-nowrap border border-charcoal/20 hover:border-charcoal/45 text-charcoal px-3 sm:px-8 py-3.5 rounded-full text-[13px] sm:text-sm font-medium tracking-wide transition-all duration-300 hover:bg-charcoal/[0.03]"
+              >
+                <MessageCircle size={16} />
+                Escríbenos
+              </a>
+              <SectionLink
+                id="ubicacion"
+                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 sm:gap-2 whitespace-nowrap border border-charcoal/20 hover:border-charcoal/45 text-charcoal px-3 sm:px-8 py-3.5 rounded-full text-[13px] sm:text-sm font-medium tracking-wide transition-all duration-300 hover:bg-charcoal/[0.03]"
+              >
+                <MapPin size={16} />
+                Dónde estamos
+              </SectionLink>
+            </div>
+          </div>
         </div>
 
         {/* Señales de confianza, en una línea */}
@@ -61,8 +78,8 @@ export default function Hero() {
             Hecho a mano, pieza por pieza
           </li>
           <li className="inline-flex items-center gap-1.5">
-            <MapPin size={13} className="text-terracotta" />
-            Punto físico en {store.address.split(',')[1]?.trim() || 'Zipaquirá'}
+            <Clock size={13} className="text-terracotta" />
+            {store.schedule}
           </li>
         </ul>
       </div>

@@ -7,20 +7,27 @@ const IG_HANDLE = contact.instagram
 const IG_PROFILE = instagramUrl
 
 /**
- * Grid curado de posts. Actualízalo cuando quieras rotar el contenido.
- * - `image`: ruta local (public/images/instagram/...) o URL absoluta.
- * - `href`: enlace al post real de Instagram.
- * - `alt`: descripción para accesibilidad.
+ * Selección curada de publicaciones. NO es un feed automático: Instagram no
+ * deja leer las publicaciones de una cuenta sin pasar por su API, que exige
+ * cuenta de empresa, una app de Meta y un token que hay que renovar.
  *
- * Usa imágenes cuadradas (1:1) para que la grilla se vea pareja.
+ * Mientras tanto, esto se actualiza a mano cuando quieras rotar el contenido:
+ *
+ *   image → la foto. Puede ser una ruta local (guárdala en
+ *           public/images/instagram/) o una URL. Usa formato cuadrado (1:1)
+ *           para que la grilla quede pareja.
+ *   href  → el enlace a la publicación real. Ábrela en Instagram, copia la
+ *           URL de la barra del navegador y pégala aquí. Si la dejas apuntando
+ *           a IG_PROFILE, el clic lleva al perfil en vez de a la publicación.
+ *   alt   → qué se ve en la foto (para lectores de pantalla y buscadores).
  */
 const posts = [
   { image: '/images/products/flowerpots/matera1.webp', href: IG_PROFILE, alt: 'Matera artesanal Herin' },
   { image: '/images/products/candles/vela1.webp',      href: IG_PROFILE, alt: 'Vela artesanal Herin' },
   { image: '/images/products/flowerpots/matera2.webp', href: IG_PROFILE, alt: 'Colección de materas' },
   { image: '/images/products/flowerpots/matera6.webp', href: IG_PROFILE, alt: 'Detalles de matera' },
-  { image: '/images/products/candles/vela1.webp',      href: IG_PROFILE, alt: 'Velas aromáticas' },
-  { image: '/images/products/flowerpots/matera1.webp', href: IG_PROFILE, alt: 'Piezas nuevas' },
+  { image: '/images/products/candles/vela7.webp',      href: IG_PROFILE, alt: 'Velas aromáticas' },
+  { image: '/images/products/flowerpots/matera7.webp', href: IG_PROFILE, alt: 'Piezas nuevas' },
 ]
 
 export default function InstagramFeed() {
@@ -39,7 +46,7 @@ export default function InstagramFeed() {
               Síguenos
             </p>
             <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-semibold text-charcoal leading-tight">
-              Lo último desde
+              Encuéntranos en
               <br />
               <span className="italic font-normal">@{IG_HANDLE}</span>
             </h2>
@@ -68,7 +75,7 @@ export default function InstagramFeed() {
 
         {/* Footer note */}
         <p className="text-center font-body text-xs text-warm-gray/70 mt-8 tracking-wide">
-          Nuevo contenido cada semana · Historias diarias en Instagram
+          Publicamos piezas nuevas e historias del taller en Instagram
         </p>
       </div>
     </section>

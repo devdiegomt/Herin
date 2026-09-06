@@ -1,7 +1,7 @@
 import { MapPin, Clock, MessageCircle, Store } from 'lucide-react'
 import { useReveal } from '../hooks/useReveal'
 import { getWhatsAppGeneralLink } from '../utils/whatsapp'
-import { store, mapEmbedSrc } from '../config/site'
+import { store, mapEmbedSrc, directionsLink } from '../config/site'
 
 export default function PuntoFisico() {
   const refText = useReveal()
@@ -42,7 +42,7 @@ export default function PuntoFisico() {
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row gap-3">
               <a
-                href={store.mapsLink}
+                href={directionsLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 bg-moss hover:bg-moss-light text-cream-light px-7 py-3.5 rounded-full text-sm font-medium tracking-wide transition-all duration-300 hover:shadow-lg hover:shadow-moss/20 hover:-translate-y-0.5"
