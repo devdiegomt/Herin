@@ -116,6 +116,11 @@ function useFeed() {
   return { posts, isLive }
 }
 
+/**
+ * Cada recuadro va en 4:5 vertical, el formato nativo de una publicación de
+ * Instagram: así las fotos se recortan lo mínimo y la grilla se parece a la
+ * del perfil.
+ */
 function PostTile({ post, index }) {
   const ref = useReveal()
   return (
@@ -124,7 +129,7 @@ function PostTile({ post, index }) {
       href={post.href}
       target="_blank"
       rel="noopener noreferrer"
-      className="reveal group relative aspect-square overflow-hidden rounded-xl bg-cream"
+      className="reveal group relative aspect-[4/5] overflow-hidden rounded-xl bg-cream"
       style={{
         transitionDelay: `${index * 0.06}s`,
         // Color dominante de la foto: evita el parpadeo gris mientras carga

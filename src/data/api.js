@@ -78,6 +78,26 @@ export async function fetchRelated(categorySlug, excludeSlug, limit = 4) {
 
 // --- Helpers ---
 
+/**
+ * Limpia el texto que escribe una persona en el panel.
+ *
+ * `cleanLine` es para campos de una línea (nombre, etiqueta): quita los
+ * espacios de los extremos y colapsa los dobles espacios de en medio. Un
+ * espacio invisible al final se cuela fácil al escribir desde el celular, y
+ * salía en el título de la pestaña y en la vista previa de WhatsApp como
+ * "Conejo orejón  — Herin".
+ *
+ * `cleanText` es para descripciones: solo recorta los extremos, porque los
+ * saltos de línea de en medio son intencionales.
+ */
+export function cleanLine(value) {
+  return String(value ?? '').replace(/\s+/g, ' ').trim()
+}
+
+export function cleanText(value) {
+  return String(value ?? '').trim()
+}
+
 // Normaliza la forma del producto: ordena imágenes, expone primary y galería.
 function normalizeProduct(p) {
   const images = (p.images ?? [])
@@ -94,11 +114,13 @@ function normalizeProduct(p) {
   return {
     id: p.id,
     slug: p.slug,
-    name: p.name,
-    description: p.description ?? '',
-    descriptionLong: p.description_long ?? p.description ?? '',
+    // Se limpia también al leer: así los productos que ya están guardados con
+    // espacios de más se ven bien sin tener que editarlos uno por uno.
+    name: cleanLine(p.name),
+    description: cleanText(p.description),
+    descriptionLong: cleanText(p.description_long || p.description),
     price: Number(p.price ?? 0),
-    tag: p.tag ?? null,
+    tag: p.tag ? cleanLine(p.tag) : null,
     active: p.active ?? true,
     categorySlug: p.category?.slug ?? null,
     categoryLabel: p.category?.label ?? '',
@@ -150,13 +172,15 @@ export async function createProduct(fields, images = []) {
   const { data: prod, error } = await supabase
     .from('products')
     .insert({
-      name: fields.name,
+      // Limpiamos aquí y no en el formulario: así ninguna ruta de guardado
+      // puede saltárselo, igual que con la optimización de imágenes.
+      name: cleanLine(fields.name),
       slug: fields.slug || undefined, // el trigger genera el slug si va vacío
       category_id: fields.categoryId || null,
-      description: fields.description ?? '',
-      description_long: fields.descriptionLong ?? '',
+      description: cleanText(fields.description),
+      description_long: cleanText(fields.descriptionLong),
       price: Number(fields.price) || 0,
-      tag: fields.tag || null,
+      tag: cleanLine(fields.tag) || null,
       active: fields.active ?? true,
       sort_order: fields.sortOrder ?? 0,
     })
@@ -176,12 +200,12 @@ export async function updateProduct(id, fields) {
   const { error } = await supabase
     .from('products')
     .update({
-      name: fields.name,
+      name: cleanLine(fields.name),
       category_id: fields.categoryId || null,
-      description: fields.description ?? '',
-      description_long: fields.descriptionLong ?? '',
+      description: cleanText(fields.description),
+      description_long: cleanText(fields.descriptionLong),
       price: Number(fields.price) || 0,
-      tag: fields.tag || null,
+      tag: cleanLine(fields.tag) || null,
       active: fields.active ?? true,
       sort_order: fields.sortOrder ?? 0,
     })
