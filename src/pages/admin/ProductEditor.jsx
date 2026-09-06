@@ -8,6 +8,7 @@ import {
   uploadProductImage, deleteProductImage, setPrimaryImage,
 } from '../../data/api'
 import { useAsyncData } from '../../hooks/useAsyncData'
+import { optimizeAll, formatBytes } from '../../utils/optimizeImage'
 
 export default function ProductEditor() {
   const { id } = useParams()
@@ -22,7 +23,9 @@ export default function ProductEditor() {
     description: '', descriptionLong: '', active: true,
   })
   const [existingImages, setExistingImages] = useState([]) // ya en la base
-  const [newFiles, setNewFiles] = useState([]) // File[] pendientes (modo nuevo)
+  // Pendientes de subir (modo nuevo): { file, preview, originalBytes, bytes }
+  const [newFiles, setNewFiles] = useState([])
+  const [imgStatus, setImgStatus] = useState(null) // texto de avance de fotos
   const [loading, setLoading] = useState(!isNew)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState(null)
@@ -53,6 +56,17 @@ export default function ProductEditor() {
     return () => { alive = false }
   }, [id, isNew])
 
+  // Libera las vistas previas pendientes AL SALIR de la pantalla.
+  // Va por ref: con [newFiles] como dependencia, la limpieza correría en cada
+  // cambio y anularía las previews que todavía se están mostrando.
+  const newFilesRef = useRef(newFiles)
+  newFilesRef.current = newFiles
+  useEffect(() => {
+    return () => {
+      newFilesRef.current.forEach((n) => URL.revokeObjectURL(n.preview))
+    }
+  }, [])
+
   // Default categoría al cargar
   useEffect(() => {
     if (categories?.length && !form.categoryId) {
@@ -65,33 +79,76 @@ export default function ProductEditor() {
     setForm((f) => ({ ...f, [key]: v }))
   }
 
-  const handleFilePick = (e) => {
-    const files = Array.from(e.target.files || [])
-    if (!files.length) return
+  const handleFilePick = async (e) => {
+    const picked = Array.from(e.target.files || [])
+    e.target.value = ''
+    if (!picked.length) return
+
+    // Reducimos las fotos aquí para que se vea qué está pasando: desde el
+    // celular una foto puede pesar varios MB y el proceso toma un momento.
+    setSaving(true)
+    setImgStatus(
+      picked.length === 1 ? 'Optimizando la foto…' : `Optimizando ${picked.length} fotos…`,
+    )
+
+    let results
+    try {
+      results = await optimizeAll(picked, (done, total) => {
+        if (total > 1 && done < total) {
+          setImgStatus(`Optimizando ${done + 1} de ${total}…`)
+        }
+      })
+    } catch {
+      setImgStatus(null)
+      setSaving(false)
+      alert('No se pudieron procesar las fotos.')
+      return
+    }
+
+    const savedBytes = results.reduce((n, r) => n + (r.originalBytes - r.bytes), 0)
 
     if (isNew) {
-      // Guardamos los File para subirlos al crear
-      setNewFiles((prev) => [...prev, ...files])
+      // Se suben al guardar el producto; mientras tanto quedan en memoria.
+      setNewFiles((prev) => [
+        ...prev,
+        ...results.map((r) => ({
+          file: r.file,
+          preview: URL.createObjectURL(r.file),
+          originalBytes: r.originalBytes,
+          bytes: r.bytes,
+        })),
+      ])
+      setImgStatus(savedBytes > 0 ? `Listas · ${formatBytes(savedBytes)} ahorrados` : null)
+      setSaving(false)
     } else {
-      // En edición, subimos de una vez
-      uploadNow(files)
+      await uploadNow(results.map((r) => r.file), savedBytes)
     }
-    e.target.value = ''
   }
 
-  const uploadNow = async (files) => {
+  const uploadNow = async (files, savedBytes = 0) => {
     setSaving(true)
     try {
       const slug = form.name ? slugify(form.name) : 'producto'
-      let order = existingImages.length
+      const order = existingImages.length
       const isFirst = existingImages.length === 0
       for (let i = 0; i < files.length; i++) {
+        setImgStatus(
+          files.length > 1
+            ? `Subiendo ${i + 1} de ${files.length}…`
+            : 'Subiendo la foto…',
+        )
         const img = await uploadProductImage(
           productId, slug, files[i], order + i, isFirst && i === 0,
         )
         setExistingImages((prev) => [...prev, img])
       }
+      setImgStatus(
+        savedBytes > 0
+          ? `Fotos subidas · ${formatBytes(savedBytes)} ahorrados`
+          : 'Fotos subidas',
+      )
     } catch {
+      setImgStatus(null)
       alert('No se pudo subir la imagen.')
     } finally {
       setSaving(false)
@@ -125,7 +182,10 @@ export default function ProductEditor() {
   }
 
   const removeNewFile = (idx) => {
-    setNewFiles((prev) => prev.filter((_, i) => i !== idx))
+    setNewFiles((prev) => {
+      URL.revokeObjectURL(prev[idx]?.preview)
+      return prev.filter((_, i) => i !== idx)
+    })
   }
 
   const handleSave = async () => {
@@ -136,7 +196,7 @@ export default function ProductEditor() {
     setSaving(true)
     try {
       if (isNew) {
-        await createProduct(form, newFiles)
+        await createProduct(form, newFiles.map((n) => n.file))
       } else {
         await updateProduct(productId, form)
       }
@@ -260,8 +320,23 @@ export default function ProductEditor() {
             </div>
 
             {isNew && (
-              <p className="text-xs text-warm-gray mb-4">
+              <p className="text-xs text-warm-gray mb-2">
                 Las fotos se subirán al guardar el producto. La primera será la principal.
+              </p>
+            )}
+
+            <p className="text-xs text-warm-gray/80 mb-4">
+              Sube la foto tal cual sale del celular: se reduce automáticamente
+              para que el catálogo cargue rápido.
+            </p>
+
+            {imgStatus && (
+              <p
+                role="status"
+                className="flex items-center gap-2 text-xs text-moss bg-moss/8 rounded-lg px-3 py-2 mb-4"
+              >
+                {saving && <Loader2 size={13} className="animate-spin shrink-0" />}
+                {imgStatus}
               </p>
             )}
 
@@ -298,14 +373,17 @@ export default function ProductEditor() {
               ))}
 
               {/* Nuevas pendientes (modo nuevo) */}
-              {newFiles.map((file, idx) => (
-                <div key={idx} className="relative aspect-square rounded-lg overflow-hidden bg-sand/30 group">
-                  <img src={URL.createObjectURL(file)} alt="" className="w-full h-full object-cover" />
+              {newFiles.map((item, idx) => (
+                <div key={item.preview} className="relative aspect-square rounded-lg overflow-hidden bg-sand/30 group">
+                  <img src={item.preview} alt="" className="w-full h-full object-cover" />
                   {idx === 0 && (
                     <span className="absolute top-1 left-1 bg-moss text-cream-light text-[10px] px-1.5 py-0.5 rounded-full">
                       Principal
                     </span>
                   )}
+                  <span className="absolute bottom-1 left-1 bg-charcoal/70 text-cream-light text-[10px] px-1.5 py-0.5 rounded-full">
+                    {formatBytes(item.bytes)}
+                  </span>
                   <button
                     onClick={() => removeNewFile(idx)}
                     className="absolute top-1 right-1 bg-white/90 text-red-600 p-1 rounded-full opacity-0 group-hover:opacity-100 transition"

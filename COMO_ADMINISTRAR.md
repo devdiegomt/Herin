@@ -74,5 +74,10 @@ computador compartido.
 ## Consejos
 
 - Usa fotos cuadradas o verticales para que se vean parejas en el catálogo.
+- **Sube la foto tal como sale del celular.** El panel la reduce solo antes de
+  guardarla, para que el catálogo cargue rápido en datos móviles. Vas a ver un
+  mensaje de "Optimizando…" y luego cuánto se ahorró.
+- Escribe siempre la **descripción corta**: es la línea que se ve debajo del
+  nombre en el catálogo. Si la dejas vacía, la tarjeta se ve incompleta.
 - El precio va sin puntos ni símbolos: escribe `5000`, no `$5.000`.
 - Los cambios se ven en el sitio de inmediato, no hay que esperar.

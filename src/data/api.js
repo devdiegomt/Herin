@@ -1,4 +1,5 @@
 import { supabase } from '../lib/supabase'
+import { optimizeImage } from '../utils/optimizeImage'
 
 /**
  * Capa de acceso a datos de Herin.
@@ -217,13 +218,23 @@ export async function deleteProduct(id) {
 }
 
 // Sube UNA imagen al Storage y la registra en product_images.
+// Toda subida pasa por aquí, así que aquí es donde garantizamos que la foto
+// va optimizada: si el editor ya la proceso, optimizeImage la deja igual.
 export async function uploadProductImage(productId, slug, file, sortOrder = 0, isPrimary = false) {
-  const ext = (file.name?.split('.').pop() || 'webp').toLowerCase()
+  const { file: optimized } = await optimizeImage(file)
+
+  const ext = (optimized.name?.split('.').pop() || 'webp').toLowerCase()
   const safeName = `${slug}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`
 
   const { error: upErr } = await supabase.storage
     .from(BUCKET)
-    .upload(safeName, file, { contentType: file.type || 'image/webp', upsert: true })
+    .upload(safeName, optimized, {
+      contentType: optimized.type || 'image/webp',
+      upsert: true,
+      // Las fotos no cambian una vez subidas (cada una tiene nombre único),
+      // así que el navegador puede cachearlas un año.
+      cacheControl: '31536000',
+    })
   if (upErr) throw upErr
 
   const { data: pub } = supabase.storage.from(BUCKET).getPublicUrl(safeName)
