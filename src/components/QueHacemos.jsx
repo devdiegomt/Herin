@@ -1,5 +1,5 @@
 import { ArrowUpRight } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import SectionLink from './SectionLink'
 import { useReveal } from '../hooks/useReveal'
 
 const categories = [
@@ -54,8 +54,9 @@ export default function QueHacemos() {
 function CategoryCard({ cat, index }) {
   const ref = useReveal()
   return (
-    <Link
-      to={`/?cat=${cat.categorySlug}#productos`}
+    <SectionLink
+      id="productos"
+      params={{ cat: cat.categorySlug }}
       ref={ref}
       className="reveal group relative overflow-hidden rounded-3xl bg-sand/40 hover:shadow-xl transition-all duration-500"
       style={{ transitionDelay: `${index * 0.1}s` }}
@@ -90,6 +91,6 @@ function CategoryCard({ cat, index }) {
           {cat.description}
         </p>
       </div>
-    </Link>
+    </SectionLink>
   )
 }
