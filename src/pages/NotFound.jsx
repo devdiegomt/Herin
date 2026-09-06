@@ -1,13 +1,16 @@
 import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar'
+import MobileBar from '../components/MobileBar'
 import Footer from '../components/Footer'
 import WhatsAppButton from '../components/WhatsAppButton'
 
 export default function NotFound() {
   return (
     <>
+      <title>Página no encontrada — Herin</title>
+      <meta name="robots" content="noindex" />
       <Navbar />
-      <main className="min-h-[70vh] flex items-center justify-center px-5 pt-24 pb-20 bg-cream-light">
+      <main className="min-h-[70vh] flex items-center justify-center px-5 pt-24 pb-20 bg-paper">
         <div className="text-center max-w-md">
           <p className="font-body text-xs tracking-[0.25em] uppercase text-terracotta mb-4">
             Error 404
@@ -28,6 +31,7 @@ export default function NotFound() {
       </main>
       <Footer />
       <WhatsAppButton />
+      <MobileBar />
     </>
   )
 }

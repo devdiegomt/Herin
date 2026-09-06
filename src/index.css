@@ -3,17 +3,26 @@
 @import "tailwindcss";
 
 @theme {
+  /* --- Base "galería": el fondo desaparece para que mande la foto --- */
+  --color-paper: #FCFBF9;      /* fondo principal */
+  --color-line: #EAE4DA;       /* bordes hairline de tarjetas y separadores */
+
+  /* Cremas: ahora son bandas de contraste puntuales, no el fondo por defecto */
   --color-cream: #F5F0E8;
   --color-cream-light: #FAF7F2;
   --color-sand: #E8DFD0;
+
+  /* Acentos. Se usan en botones, etiquetas y detalles, nunca en superficies grandes */
   --color-terracotta: #C47D5A;
   --color-terracotta-dark: #A8633F;
   --color-moss: #4A5D3A;
   --color-moss-light: #6B7F5A;
-  --color-charcoal: #2D2A26;
-  --color-warm-gray: #8C8278;
   --color-sage: #A8B89A;
   --color-blush: #D4A89A;
+
+  /* Texto */
+  --color-charcoal: #2D2A26;
+  --color-warm-gray: #8C8278;
 
   --font-display: 'Cormorant Garamond', Georgia, serif;
   --font-body: 'DM Sans', system-ui, sans-serif;
@@ -51,7 +60,7 @@ section[id] {
 
 body {
   font-family: var(--font-body);
-  background-color: var(--color-cream-light);
+  background-color: var(--color-paper);
   color: var(--color-charcoal);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -102,6 +111,22 @@ body {
 
 /* Custom scrollbar */
 ::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--color-cream); }
+::-webkit-scrollbar-track { background: var(--color-paper); }
 ::-webkit-scrollbar-thumb { background: var(--color-sand); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--color-warm-gray); }
+
+/* Espacio para la barra de acciones fija en móvil (ver MobileBar). */
+@media (max-width: 767px) {
+  body {
+    padding-bottom: calc(4.5rem + env(safe-area-inset-bottom));
+  }
+}
+
+/* Fila de categorias del catalogo: scroll horizontal sin barra visible. */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

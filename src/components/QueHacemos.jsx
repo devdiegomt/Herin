@@ -24,7 +24,7 @@ export default function QueHacemos() {
   const refHeader = useReveal()
 
   return (
-    <section id="que-hacemos" className="py-20 sm:py-28 bg-cream-light">
+    <section id="que-hacemos" className="py-20 sm:py-28 bg-paper">
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
         {/* Header */}
         <div ref={refHeader} className="reveal text-center mb-14 sm:mb-18 max-w-2xl mx-auto">
@@ -80,7 +80,7 @@ function CategoryCard({ cat, index }) {
           <h3 className="font-display text-3xl sm:text-4xl font-semibold leading-none">
             {cat.title}
           </h3>
-          <span className="w-11 h-11 rounded-full bg-cream-light/15 backdrop-blur-sm flex items-center justify-center group-hover:bg-terracotta group-hover:rotate-45 transition-all duration-500 shrink-0">
+          <span className="w-11 h-11 rounded-full bg-paper/15 backdrop-blur-sm flex items-center justify-center group-hover:bg-terracotta group-hover:rotate-45 transition-all duration-500 shrink-0">
             <ArrowUpRight size={18} />
           </span>
         </div>

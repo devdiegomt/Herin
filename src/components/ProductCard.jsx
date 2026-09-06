@@ -3,73 +3,81 @@ import { MessageCircle } from 'lucide-react'
 import { getWhatsAppLink } from '../utils/whatsapp'
 import { formatPrice } from '../data/api'
 
-export default function ProductCard({ product }) {
-  const { name, slug, description, price, image, tag, categorySlug, categoryLabel } = product
+/**
+ * Tarjeta de catálogo. En móvil van dos por fila, así que la información se
+ * reduce a lo esencial: foto, nombre y precio. La descripción aparece desde sm.
+ *
+ * @param {boolean} priority - las primeras tarjetas cargan su imagen de
+ *   inmediato en vez de con lazy loading, para que el catálogo no aparezca
+ *   vacío al llegar desde Instagram.
+ */
+export default function ProductCard({ product, priority = false }) {
+  const { name, slug, description, price, image, tag, categoryLabel } = product
+  const href = `/producto/${slug}`
 
   return (
-    <article className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1">
-      {/* Image (links to detail) */}
-      <Link to={`/producto/${slug}`} className="block relative aspect-[4/5] overflow-hidden bg-sand/30">
-        {image ? (
-          <img
-            src={image}
-            alt={name}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-            loading="lazy"
-          />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center text-warm-gray/40 text-sm">
-            Sin imagen
-          </div>
-        )}
+    <article className="group flex flex-col">
+      {/* El enlace de WhatsApp va como hermano del Link, no dentro:
+          un <a> no puede contener otro <a>. */}
+      <div className="relative">
+        <Link
+          to={href}
+          className="block aspect-[4/5] overflow-hidden rounded-2xl bg-cream"
+        >
+          {image ? (
+            <img
+              src={image}
+              alt={name}
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+              loading={priority ? 'eager' : 'lazy'}
+              fetchPriority={priority ? 'high' : 'auto'}
+              decoding="async"
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center text-warm-gray/40 text-xs">
+              Sin imagen
+            </div>
+          )}
+        </Link>
 
         {tag && (
-          <span className="absolute top-4 left-4 bg-moss text-cream-light text-xs font-medium px-3 py-1.5 rounded-full tracking-wide">
+          <span className="pointer-events-none absolute top-3 left-3 bg-paper/90 backdrop-blur-sm text-charcoal text-[10px] font-medium px-2.5 py-1 rounded-full tracking-wide">
             {tag}
           </span>
         )}
 
-        <span className="absolute top-4 right-4 bg-white/85 backdrop-blur-sm text-charcoal text-xs font-medium px-3 py-1.5 rounded-full capitalize tracking-wide">
-          {categorySlug === 'materas' ? '🌱 ' : '🕯️ '}{categoryLabel || 'Producto'}
-        </span>
+        {/* Consulta directa sin salir del catálogo */}
+        <a
+          href={getWhatsAppLink(name, formatPrice(price))}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Consultar ${name} por WhatsApp`}
+          className="absolute bottom-3 right-3 w-9 h-9 rounded-full bg-paper/90 backdrop-blur-sm text-moss flex items-center justify-center shadow-sm transition-all duration-300 hover:bg-moss hover:text-paper md:opacity-0 md:group-hover:opacity-100 md:focus-visible:opacity-100"
+        >
+          <MessageCircle size={16} />
+        </a>
+      </div>
 
-        <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/15 transition-all duration-500" />
-      </Link>
-
-      {/* Info */}
-      <div className="p-5 sm:p-6">
-        <div className="flex items-start justify-between gap-3 mb-2">
-          <h3 className="font-display text-xl sm:text-2xl font-semibold text-charcoal">
-            <Link to={`/producto/${slug}`} className="hover:text-terracotta transition-colors">
-              {name}
-            </Link>
-          </h3>
-          <span className="font-body text-sm font-semibold text-terracotta whitespace-nowrap mt-1">
-            {formatPrice(price)}
-          </span>
-        </div>
-
-        <p className="font-body text-sm text-warm-gray leading-relaxed mb-5 line-clamp-2">
-          {description}
+      <div className="pt-3 flex flex-col flex-1">
+        <p className="font-body text-[10px] tracking-[0.18em] uppercase text-warm-gray/70 mb-1">
+          {categoryLabel}
         </p>
 
-        <div className="flex gap-2">
-          <Link
-            to={`/producto/${slug}`}
-            className="flex-1 flex items-center justify-center gap-2 border border-charcoal/20 hover:border-charcoal/40 text-charcoal py-3 rounded-xl text-sm font-medium tracking-wide transition-all duration-300 hover:bg-charcoal/5"
-          >
-            Ver detalle
+        <h3 className="font-display text-lg sm:text-xl font-semibold text-charcoal leading-snug mb-1">
+          <Link to={href} className="hover:text-terracotta transition-colors">
+            {name}
           </Link>
-          <a
-            href={getWhatsAppLink(name, formatPrice(price))}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Consultar por WhatsApp"
-            className="flex items-center justify-center gap-2 bg-moss hover:bg-moss-light text-cream-light px-4 rounded-xl text-sm font-medium tracking-wide transition-all duration-300 hover:shadow-md hover:shadow-moss/15"
-          >
-            <MessageCircle size={18} />
-          </a>
-        </div>
+        </h3>
+
+        {description && (
+          <p className="hidden sm:block font-body text-sm text-warm-gray leading-relaxed mb-2 line-clamp-2">
+            {description}
+          </p>
+        )}
+
+        <p className="font-body text-sm font-semibold text-charcoal mt-auto pt-1">
+          {formatPrice(price)}
+        </p>
       </div>
     </article>
   )

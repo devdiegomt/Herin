@@ -27,7 +27,7 @@ export default function InstagramFeed() {
   const refHeader = useReveal()
 
   return (
-    <section id="instagram" className="py-20 sm:py-28 bg-cream-light">
+    <section id="instagram" className="py-20 sm:py-28 bg-paper">
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
         {/* Header */}
         <div
