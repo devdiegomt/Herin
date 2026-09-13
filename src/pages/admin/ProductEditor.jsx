@@ -98,10 +98,10 @@ export default function ProductEditor() {
           setImgStatus(`Optimizando ${done + 1} de ${total}…`)
         }
       })
-    } catch {
+    } catch (err) {
       setImgStatus(null)
       setSaving(false)
-      alert('No se pudieron procesar las fotos.')
+      alert(err?.message || 'No se pudieron procesar las fotos.')
       return
     }
 
@@ -147,9 +147,9 @@ export default function ProductEditor() {
           ? `Fotos subidas · ${formatBytes(savedBytes)} ahorrados`
           : 'Fotos subidas',
       )
-    } catch {
+    } catch (err) {
       setImgStatus(null)
-      alert('No se pudo subir la imagen.')
+      alert(err?.message || 'No se pudo subir la imagen.')
     } finally {
       setSaving(false)
     }
@@ -314,7 +314,7 @@ export default function ProductEditor() {
                 Subir
               </button>
               <input
-                ref={fileInputRef} type="file" accept="image/*" multiple
+                ref={fileInputRef} type="file" accept="image/*,.heic,.heif" multiple
                 onChange={handleFilePick} className="hidden"
               />
             </div>

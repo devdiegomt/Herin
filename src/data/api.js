@@ -247,13 +247,21 @@ export async function deleteProduct(id) {
 export async function uploadProductImage(productId, slug, file, sortOrder = 0, isPrimary = false) {
   const { file: optimized } = await optimizeImage(file)
 
+  // Última barrera: nunca subir un HEIC sin convertir. Fuera de Safari ningún
+  // navegador lo puede mostrar, así que en el catálogo saldría una foto rota.
+  // optimizeImage ya lanza un error claro si la conversión falla; esto cubre
+  // cualquier otro camino que llegue hasta aquí.
+  if (!optimized.type || /image\/hei[cf]/i.test(optimized.type) || /\.(heic|heif)$/i.test(optimized.name)) {
+    throw new Error(`"${file.name}" no se pudo convertir a un formato que el sitio pueda mostrar.`)
+  }
+
   const ext = (optimized.name?.split('.').pop() || 'webp').toLowerCase()
   const safeName = `${slug}/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`
 
   const { error: upErr } = await supabase.storage
     .from(BUCKET)
     .upload(safeName, optimized, {
-      contentType: optimized.type || 'image/webp',
+      contentType: optimized.type,
       upsert: true,
       // Las fotos no cambian una vez subidas (cada una tiene nombre único),
       // así que el navegador puede cachearlas un año.
