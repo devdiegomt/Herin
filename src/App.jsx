@@ -8,6 +8,7 @@ import NotFound from './pages/NotFound'
 import Login from './pages/admin/Login'
 import Dashboard from './pages/admin/Dashboard'
 import ProductEditor from './pages/admin/ProductEditor'
+import Links from './pages/Links'
 
 export default function App() {
   return (
