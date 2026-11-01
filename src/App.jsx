@@ -18,6 +18,7 @@ export default function App() {
           <Routes>
             {/* Público */}
             <Route path="/" element={<Home />} />
+            <Route path="/links" element={<Links />} />
             <Route path="/producto/:slug" element={<ProductDetail />} />
 
             {/* Admin */}
