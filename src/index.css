@@ -12,6 +12,11 @@
   --color-cream-light: #FAF7F2;
   --color-sand: #E8DFD0;
 
+  /* Dorado de temporada: solo para la Colección Navidad. Apagado a propósito
+     —un dorado brillante pelearía con las fotos y rompería el tono galería. */
+  --color-gold: #C9A227;
+  --color-gold-dark: #9A7B1E;
+
   /* Acentos. Se usan en botones, etiquetas y detalles, nunca en superficies grandes */
   --color-terracotta: #C47D5A;
   --color-terracotta-dark: #A8633F;
