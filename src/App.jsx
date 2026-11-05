@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Analytics } from '@vercel/analytics/react'
 import { AuthProvider } from './auth/AuthContext'
 import RequireAuth from './auth/RequireAuth'
 import ScrollToHash from './components/ScrollToHash'
@@ -15,6 +16,13 @@ export default function App() {
     <AuthProvider>
       <BrowserRouter>
         <ScrollToHash />
+        {/*
+          Analítica de Vercel: cuenta visitas y de dónde llegan (Instagram,
+          WhatsApp, Google, QR del local). Sin cookies y sin datos personales,
+          así que no hace falta banner de consentimiento.
+          El panel está en vercel.com → proyecto Herin → pestaña Analytics.
+        */}
+        <Analytics />
         <div className="font-body antialiased">
           <Routes>
             {/* Público */}

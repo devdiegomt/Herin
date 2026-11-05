@@ -4,6 +4,7 @@ import { Search, X } from 'lucide-react'
 import ProductCard from './ProductCard'
 import { useAsyncData } from '../hooks/useAsyncData'
 import { fetchProducts, fetchCategories } from '../data/api'
+import { esNavideno, enTemporada, ETIQUETA } from '../config/navidad'
 
 /**
  * El catálogo guarda categoría y búsqueda en la URL (?cat=velas&q=conejo).
@@ -14,6 +15,9 @@ export default function ProductList() {
   const [params, setParams] = useSearchParams()
   const activeCat = params.get('cat') ?? 'all'
   const urlQuery = params.get('q') ?? ''
+  // ?tag=navidad filtra la colección de temporada. Va aparte de `cat` para que
+  // el link se pueda compartir solo ("mira lo de Navidad") sin perder nada.
+  const soloNavidad = params.get('tag') === 'navidad'
 
   // Input local: no reescribimos la URL en cada tecla
   const [draft, setDraft] = useState(urlQuery)
@@ -35,6 +39,14 @@ export default function ProductList() {
     setParams(merged, { replace: true, preventScrollReset: true })
   }
 
+  function verCategoria(slug) {
+    updateParams({ cat: slug, tag: '' })
+  }
+
+  function verNavidad() {
+    updateParams({ cat: 'all', tag: soloNavidad ? '' : 'navidad' })
+  }
+
   const { data: products, loading, error } = useAsyncData(fetchProducts, [])
   const { data: cats } = useAsyncData(fetchCategories, [])
 
@@ -47,6 +59,7 @@ export default function ProductList() {
     if (!products) return []
     const q = normalize(urlQuery)
     return products.filter((p) => {
+      if (soloNavidad && !esNavideno(p)) return false
       if (activeCat !== 'all' && p.categorySlug !== activeCat) return false
       if (!q) return true
       // Busca en nombre, descripción, categoría y etiqueta a la vez
@@ -55,10 +68,18 @@ export default function ProductList() {
       )
       return q.split(/\s+/).every((word) => haystack.includes(word))
     })
-  }, [products, activeCat, urlQuery])
+  }, [products, activeCat, urlQuery, soloNavidad])
 
-  const hasFilters = activeCat !== 'all' || urlQuery !== ''
+  const hasFilters = activeCat !== 'all' || urlQuery !== '' || soloNavidad
   const activeLabel = categories.find((c) => c.slug === activeCat)?.label
+
+  // El chip de Navidad solo aparece si estamos en temporada Y hay piezas
+  // etiquetadas: así el catálogo nunca ofrece una colección vacía.
+  const navidenos = useMemo(
+    () => (products ?? []).filter(esNavideno).length,
+    [products],
+  )
+  const mostrarNavidad = enTemporada(window.location.search) && navidenos > 0
 
   return (
     <section id="productos" className="bg-paper pb-20 sm:pb-28">
@@ -83,10 +104,10 @@ export default function ProductList() {
             {categories.map((cat) => (
               <button
                 key={cat.slug}
-                onClick={() => updateParams({ cat: cat.slug })}
-                aria-pressed={activeCat === cat.slug}
+                onClick={() => verCategoria(cat.slug)}
+                aria-pressed={!soloNavidad && activeCat === cat.slug}
                 className={`shrink-0 px-4 sm:px-5 py-2 rounded-full text-sm font-medium tracking-wide transition-colors duration-200 ${
-                  activeCat === cat.slug
+                  !soloNavidad && activeCat === cat.slug
                     ? 'bg-charcoal text-paper'
                     : 'border border-line text-warm-gray hover:border-charcoal/30 hover:text-charcoal'
                 }`}
@@ -94,6 +115,25 @@ export default function ProductList() {
                 {cat.label}
               </button>
             ))}
+
+            {/* La colección va al final y con dorado: se distingue de las
+                categorías permanentes y desaparece sola al pasar la fecha. */}
+            {mostrarNavidad && (
+              <button
+                onClick={verNavidad}
+                aria-pressed={soloNavidad}
+                className={`shrink-0 inline-flex items-center gap-1.5 px-4 sm:px-5 py-2 rounded-full text-sm font-medium tracking-wide transition-colors duration-200 ${
+                  soloNavidad
+                    ? 'bg-gold-dark text-paper'
+                    : 'border border-gold/45 text-gold-dark hover:bg-gold/10'
+                }`}
+              >
+                <svg viewBox="0 0 24 24" className="w-3.5 h-3.5" fill="currentColor" aria-hidden="true">
+                  <path d="M12 2l2.4 6.9L21.5 11l-6.1 3.4L13.9 22 12 16.2 10.1 22l-1.5-7.6L2.5 11l7.1-2.1z" />
+                </svg>
+                Navidad
+              </button>
+            )}
           </div>
 
           {/* Búsqueda */}
@@ -126,11 +166,15 @@ export default function ProductList() {
           <div className="flex items-center justify-between gap-3 mb-5 min-h-6">
             <p className="font-body text-xs text-warm-gray">
               {filtered.length} {filtered.length === 1 ? 'pieza' : 'piezas'}
-              {activeCat !== 'all' && activeLabel ? ` en ${activeLabel}` : ''}
+              {soloNavidad
+                ? ' de Navidad'
+                : activeCat !== 'all' && activeLabel
+                  ? ` en ${activeLabel}`
+                  : ''}
             </p>
             {hasFilters && (
               <button
-                onClick={() => updateParams({ cat: 'all', q: '' })}
+                onClick={() => updateParams({ cat: 'all', q: '', tag: '' })}
                 className="font-body text-xs text-terracotta hover:text-terracotta-dark transition-colors"
               >
                 Ver todo
@@ -172,7 +216,7 @@ export default function ProductList() {
               Prueba con otra palabra o mira todo el catálogo.
             </p>
             <button
-              onClick={() => updateParams({ cat: 'all', q: '' })}
+              onClick={() => updateParams({ cat: 'all', q: '', tag: '' })}
               className="inline-flex items-center justify-center bg-charcoal hover:bg-charcoal/85 text-paper px-6 py-3 rounded-full text-sm font-medium transition-colors"
             >
               Ver todo el catálogo

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { MessageCircle } from 'lucide-react'
 import { getWhatsAppLink } from '../utils/whatsapp'
 import { formatPrice } from '../data/api'
+import { esNavideno } from '../config/navidad'
 
 /**
  * Tarjeta de catálogo. En móvil van dos por fila, así que la información se
@@ -41,7 +42,18 @@ export default function ProductCard({ product, priority = false }) {
         </Link>
 
         {tag && (
-          <span className="pointer-events-none absolute top-3 left-3 bg-paper/90 backdrop-blur-sm text-charcoal text-[10px] font-medium px-2.5 py-1 rounded-full tracking-wide">
+          <span
+            className={`pointer-events-none absolute top-3 left-3 backdrop-blur-sm text-[10px] font-medium px-2.5 py-1 rounded-full tracking-wide inline-flex items-center gap-1 ${
+              esNavideno(product)
+                ? 'bg-gold-dark/92 text-paper'
+                : 'bg-paper/90 text-charcoal'
+            }`}
+          >
+            {esNavideno(product) && (
+              <svg viewBox="0 0 24 24" className="w-2.5 h-2.5" fill="currentColor" aria-hidden="true">
+                <path d="M12 2l2.4 6.9L21.5 11l-6.1 3.4L13.9 22 12 16.2 10.1 22l-1.5-7.6L2.5 11l7.1-2.1z" />
+              </svg>
+            )}
             {tag}
           </span>
         )}

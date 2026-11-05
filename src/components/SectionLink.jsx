@@ -44,13 +44,20 @@ export default function SectionLink({ id, params, children, onNavigate, ...props
       // Aplica el filtro sin que React Router mueva el scroll por su cuenta;
       // del scroll nos encargamos abajo.
       navigate(href, { replace: true, preventScrollReset: true })
-    } else {
-      // Sin filtros no hace falta re-renderizar: basta con dejar la URL
-      // compartible.
-      window.history.replaceState(null, '', href)
+
+      // Esperamos a que React pinte la lista filtrada. Si hacemos el scroll de
+      // una, la grilla pasa de 32 piezas a 5 a mitad de camino, la página se
+      // encoge y el navegador corta el desplazamiento antes de llegar.
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() => irA(id)),
+      )
+      return
     }
 
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    // Sin filtros no hace falta re-renderizar: basta con dejar la URL
+    // compartible.
+    window.history.replaceState(null, '', href)
+    irA(id)
   }
 
   return (
@@ -58,4 +65,8 @@ export default function SectionLink({ id, params, children, onNavigate, ...props
       {children}
     </a>
   )
+}
+
+function irA(id) {
+  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 }

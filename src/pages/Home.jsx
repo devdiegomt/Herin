@@ -2,6 +2,7 @@ import Seo from '../components/Seo'
 import Navbar from '../components/Navbar'
 import Hero from '../components/Hero'
 import ProductList from '../components/ProductList'
+import NavidadBanner from '../components/NavidadBanner'
 import QueHacemos from '../components/QueHacemos'
 import Diferencial from '../components/Diferencial'
 import PuntoFisico from '../components/PuntoFisico'
@@ -27,6 +28,7 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
+        <NavidadBanner />
         <ProductList />
         <QueHacemos />
         <Diferencial />
