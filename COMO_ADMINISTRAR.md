@@ -23,6 +23,10 @@ o eliminar, y cambiar precios y fotos. No necesitas saber de programación.
    - Precio (solo el número, por ejemplo `18000` — el sitio le pone el
      formato $18.000 solito).
    - Etiqueta (opcional): algo como "Edición limitada". Déjalo vacío si no aplica.
+     **Para que entre a la colección de Navidad, escribe ahí la palabra
+     `Navidad`.** Da igual si la escribes en mayúsculas o si pones algo más
+     alrededor, como "Navidad 2026": mientras aparezca la palabra, la pieza
+     sale en la colección.
    - Descripción corta: una línea que se ve en el catálogo.
    - Descripción larga: el detalle completo (materiales, tamaño, etc.).
 3. En la sección **Fotos**, toca **Subir** y elige una o varias imágenes desde

@@ -6,10 +6,10 @@
  *
  * CÓMO SE MARCA UN PRODUCTO COMO NAVIDEÑO
  * En el panel (/admin), al crear o editar el producto, en el campo
- * **Etiqueta** se escribe:  Navidad
- * Eso basta. Aparece solo en la colección, con su distintivo, y el chip
- * "Navidad" se activa en el catálogo. No hay que crear categorías ni tocar
- * la base de datos.
+ * **Etiqueta** se escribe la palabra Navidad. Basta con que aparezca: también
+ * sirven "Navidad 2026" o "Especial Navidad", en mayúsculas o minúsculas.
+ * Aparece solo en la colección, con su distintivo, y el chip "Navidad" se
+ * activa en el catálogo. No hay que crear categorías ni tocar la base.
  */
 
 // La etiqueta que se escribe en el panel. Se compara sin tildes ni mayúsculas.
@@ -40,9 +40,20 @@ export const navidad = {
   hasta: '2026-12-26',
 }
 
-/** ¿Un producto es de la colección de Navidad? */
+/**
+ * ¿Un producto es de la colección de Navidad?
+ *
+ * Basta con que la etiqueta CONTENGA la palabra, no que sea idéntica. El panel
+ * lo usa una persona que no programa, y antes "Navidad 2026" o "Especial
+ * Navidad" dejaban el producto fuera de la colección sin ningún aviso: la
+ * etiqueta se veía bien en el panel y la pieza simplemente no aparecía.
+ *
+ * Acepta mayúsculas, tildes y espacios de más. Sigue descartando etiquetas de
+ * otra cosa, como "Edición limitada".
+ */
 export function esNavideno(producto) {
-  return limpia(producto?.tag) === limpia(ETIQUETA)
+  const etiqueta = limpia(producto?.tag)
+  return etiqueta !== '' && etiqueta.includes(limpia(ETIQUETA))
 }
 
 /**
