@@ -1,6 +1,16 @@
 {
   "rewrites": [
-    { "source": "/producto/:slug", "destination": "/api/producto?slug=:slug" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    {
+      "source": "/navidad",
+      "destination": "/api/navidad"
+    },
+    {
+      "source": "/producto/:slug",
+      "destination": "/api/producto?slug=:slug"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
   ]
 }
