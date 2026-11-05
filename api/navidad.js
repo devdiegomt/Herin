@@ -65,7 +65,13 @@ export default async function handler(req, res) {
     // Deja el catálogo filtrado sin que el visitante tenga que tocar nada.
     // Va en el HTML y no como redirección del servidor para que el bot de
     // WhatsApp alcance a leer las etiquetas de arriba.
-    `<script>if(!location.search){history.replaceState(null,'','/?tag=navidad#productos')}</script>`,
+    //
+    // Conserva los parámetros que ya vengan (utm_source y demás): si los
+    // borráramos, la analítica no sabría de dónde llegó la visita, que es
+    // justo para lo que se reparte este link.
+    `<script>(function(){var p=new URLSearchParams(location.search);` +
+      `if(p.get('tag')==='navidad')return;p.set('tag','navidad');` +
+      `history.replaceState(null,'','/?'+p+'#productos')})()</script>`,
   ]
 
   res.setHeader('Content-Type', 'text/html; charset=utf-8')
