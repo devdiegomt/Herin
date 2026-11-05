@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Menu, X, MessageCircle } from 'lucide-react'
 import SectionLink from './SectionLink'
+import NavidadLink from './NavidadLink'
 import { sections } from '../config/site'
 import { getWhatsAppGeneralLink } from '../utils/whatsapp'
 
@@ -35,12 +36,13 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-4 lg:gap-6 xl:gap-8">
+            <NavidadLink />
             {sections.map((s) => (
               <SectionLink
                 key={s.id}
                 id={s.id}
-                className="font-body text-sm font-medium tracking-wide text-warm-gray hover:text-terracotta transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1.5px] after:bg-terracotta after:transition-all after:duration-300 hover:after:w-full"
+                className="font-body text-sm font-medium tracking-wide whitespace-nowrap text-warm-gray hover:text-terracotta transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1.5px] after:bg-terracotta after:transition-all after:duration-300 hover:after:w-full"
               >
                 {s.label}
               </SectionLink>
@@ -49,7 +51,7 @@ export default function Navbar() {
               href={getWhatsAppGeneralLink()}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-moss hover:bg-moss-light text-cream-light px-5 py-2.5 rounded-full text-sm font-medium tracking-wide transition-colors"
+              className="inline-flex items-center gap-2 shrink-0 whitespace-nowrap bg-moss hover:bg-moss-light text-cream-light px-4 lg:px-5 py-2.5 rounded-full text-sm font-medium tracking-wide transition-colors"
             >
               <MessageCircle size={16} />
               Escríbenos
@@ -71,10 +73,13 @@ export default function Navbar() {
       {/* Mobile menu */}
       <div
         className={`md:hidden overflow-hidden transition-all duration-400 ease-in-out ${
-          isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+          // 28rem y no 24: con el enlace de Navidad el contenido mide 368px
+          // y max-h-96 (384px) dejaba 16px de margen. Una sección más lo recortaba.
+          isOpen ? 'max-h-[28rem] opacity-100' : 'max-h-0 opacity-0'
         }`}
       >
         <div className="bg-cream-light/98 backdrop-blur-lg border-t border-sand/50 px-5 py-4 space-y-1">
+          <NavidadLink variante="movil" onNavigate={close} />
           {sections.map((s) => (
             <SectionLink
               key={s.id}
